@@ -96,6 +96,9 @@ python convert_to_gcn_data.py --fc res50 --wv glove
 python gcn/train_gcn.py --gpu $GPU_ID 	--dataset ../data/glove_res50/ --save_path $SAVE_PATH
 ```
 
+### Misc
+`preprocess.sh` demonstrates how to get list in `data/list/`.
+
 ## Citation
 If you find this work helpful, please consider citing:
 ```
