@@ -5,6 +5,7 @@
 *.pyc
 ind.NELL.*
 data/word_embedding_model/*
+data/list/img-*.txt
 images/
 feats/
 output/
