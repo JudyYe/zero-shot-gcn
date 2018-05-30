@@ -76,7 +76,6 @@ def init(model_path, sess):
                 print('Does not match shape: ', v.shape, var_keep_dic[name])
                 continue
             variables_to_restore.append(v)
-            # print('init: ', v.name)
     for name in var_keep_dic:
         if not my_dict.has_key(name):
             print('I do not have ', name)
@@ -90,14 +89,12 @@ def preprocess_res50(image_name):
     _G_MEAN = 116.78
     _B_MEAN = 103.94
     image = cv2.imread(image_name)
-    print(image_name)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     target_size = 256
     crop_size = 224
     im_size_min = np.min(image.shape[0:2])
     im_scale = float(target_size) / float(im_size_min)
     image = cv2.resize(image, None, None, fx=im_scale, fy=im_scale, interpolation=cv2.INTER_LINEAR)
-    # print(image.shape)
     height = image.shape[0]
     width = image.shape[1]
     x = int((width - crop_size) / 2)
@@ -115,13 +112,11 @@ def preprocess_res50(image_name):
 def preprocess_inception(image_name):
     image = cv2.imread(image_name)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    # print(image.shape)
     target_size = 256
     crop_size = 224
     im_size_min = np.min(image.shape[0:2])
     im_scale = float(target_size) / float(im_size_min)
     image = cv2.resize(image, None, None, fx=im_scale, fy=im_scale, interpolation=cv2.INTER_LINEAR)
-    # print(image.shape)
     height = image.shape[0]
     width = image.shape[1]
     x = int((width - crop_size) / 2)
@@ -178,7 +173,6 @@ def inception_arg_scope(is_training=True,
     'is_training': False,
     'decay': batch_norm_decay,
     'epsilon': batch_norm_epsilon,
-    # 'scale': batch_norm_scale,
     'trainable': False,
     'updates_collections': tf.GraphKeys.UPDATE_OPS
   }
@@ -197,8 +191,6 @@ def res50():
     image = tf.placeholder(tf.float32, [None, 224, 224, 3], 'image')
     with slim.arg_scope(resnet_arg_scope(is_training=False)):
         net_conv, end_point = resnet_v1.resnet_v1_50(image, global_pool=True, is_training=False)
-    # net_conv, end_point = resnet_v1.resnet_v1_50(image, global_pool=True, is_training=True)
-    #
     return net_conv, image
 
 
@@ -214,8 +206,6 @@ def inception():
                     net_conv = layers_lib.avg_pool2d(
                         net, [7, 7], stride=1, scope='MaxPool_0a_7x7')
     print(net_conv.shape)
-    # net_conv, end_point = inception_v1.inception_v1(image, is_training=False)
-    # print(end_point.keys())
 
     return net_conv, image
 
@@ -229,7 +219,7 @@ def parse_arg():
                         help='list of image file')
     parser.add_argument('--image_dir', type=str, default='../images/',
                         help='directory to save features')
-    parser.add_argument('--feat_dir', type=str, default='../feats/res50/',
+    parser.add_argument('--feat_dir', type=str, default='../feats/',
                         help='directory to save features')
     parser.add_argument('--gpu', type=str, default='0',
                         help='gpu device')
@@ -254,7 +244,6 @@ with open(args.image_file) as fp:
         index, l = line.split()
         image_list.append(index)
         label_list.append(int(l))
-    # image_list = [line.split()[0] for line in fp]
 
 if __name__ == '__main__':
     extract_feature(image_list, pool5, image_holder, preprocess, args.model_path, args.image_dir, args.feat_dir)

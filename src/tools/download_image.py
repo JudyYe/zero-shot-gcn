@@ -91,8 +91,6 @@ def parse_arg():
                         help='your username', required=True)
     parser.add_argument('--key', type=str,
                         help='your access key', required=True)
-    parser.add_argument('--num_threads', type=int, default=32,
-                        help='num of downloading threads')
     args = parser.parse_args()
     if args.save_dir is None:
         print('Please set directory to save images')

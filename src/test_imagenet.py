@@ -144,7 +144,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('--model', type=str, default='model/wordnet_google_glove_feat_2048_1024_512_300',
                         help='path of model to test')
-    parser.add_argument('--feat', type=str, default='../feats/',
+    parser.add_argument('--feat', type=str, default='../feats/res50/',
                         help='path of fc feature')
     parser.add_argument('--hop', type=str, default='2',
                         help='choice of unseen set: 2,3,all, separate with comma')
