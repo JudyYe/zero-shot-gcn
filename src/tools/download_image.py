@@ -8,10 +8,6 @@ data_dir = '../data/'
 
 
 def download(start, end, todo_list):
-    username = 'judyye'
-    access_key = '0c1c85c8452cfc8f0857b12038b9025481a69d11'
-    # username = 'YOUR_USER_NAME'
-    # access_key = 'YOUR_ACCESS_KEY'
     url_list = 'http://www.image-net.org/download/synset?wnid='
     url_key = '&username=%s&accesskey=%s&release=latest&src=stanford' % (args.user, args.key)
     print url_key
