@@ -25,7 +25,7 @@ cd zero-shot-gcn/src
 
 ## Prepare data
 The total images will take about 1.1T. The extracted feature will also be over 30G. It is recommended to save them to your large space storage $IMAGE_FOLDER $FEAT_FOLDER and soft link them.
-```
+```Shell
 cd ..
 ln -s $IMAGE_FOLDER images
 ln -s $FEAT_FOLDER feats
@@ -35,7 +35,7 @@ cd src
 ### Download images of unseen class from ImageNet.
 
 To get access to original images from ImageNet, you need to [register](http://image-net.org/signup) a pair of username and access key.
-```
+```Shell
 python tools/download_image.py --user $YOUR_USER_NAME --key $YOUR_ACCESS_KEY --save_dir ../images/ --hop 2 &
 ```
 
@@ -45,14 +45,14 @@ python tools/download_image.py --user $YOUR_USER_NAME --key $YOUR_ACCESS_KEY --s
 
 ### Extract visual features of images
 1. **Download** ImageNet preatrained CNN (resnet 50)
-```
+```Shell
 mkdir ../pretrain_weights && cd ../pretrain_weights
 wget http://download.tensorflow.org/models/resnet_v1_50_2016_08_28.tar.gz
 tar xf resnet_v1_50_2016_08_28.tar.gz
 cd ../src
 ```
 To download  Inception pretrained model:
-```
+```Shell
 cd ../pretrain_weights
 wget http://download.tensorflow.org/models/inception_v1_2016_08_28.tar.gz
 tar xf inception_v1_2016_08_28.tar.gz
@@ -60,17 +60,17 @@ cd ../src
 ```
 2. **Extract feature**. The following will give you default mode: extracting the feature with pretrained `res50` for `2-hops` and save them to `../feats/`.
 The script supports multi-processing.  It is *recommended* to run several copies to speed up this step.
-```
+```Shell
 python tools/extract_pool5.py --gpu $GPU_ID &
 ```
 For full argument configurations:
-```
+```Shell
 python tools/extract_pool5.py --fc $res50_OR_inception --model_path $CNN_MODEL_PATH --image_file $IMAGE_LIST_PATH --image_dir $DIR_TO_IMAGE --feat_dir $DIR_TO_SAVE_FEAT --gpu $GPU_ID &
 ```
 
 ## Testing
 Although it takes 2 more steps to train GCN, at this point, we are ready to perform zero-shot classification with the [model](https://www.dropbox.com/sh/q9mid4wjj5vy0si/AADg8_NobfxkDot3VM7tE8Fua?dl=0) we provide.
-```
+```Shell
 python test_imagenet.py --model $MODEL_PATH
 ```
 The above line defaults to `res50` + `2-hops` combination and test under two settings: unseen classes with or without seen classes. (see the paper for further explaination.)
@@ -87,11 +87,11 @@ We also provide other configurations. Please refer to the code for details.
         * You need to download the pretrained word embedding dictionary. The link is written in the beginning of the script. Please manually download what you need since some model in the google drive cannot wget.
 2.  Convert to GCN data. The script converts semantic embedding to input $X$; prepare class relation graph; and convert classifier of pretrained CNN model to output $W$.
 The output will be saved to ../data/$wv_$fc/
-```
+```Shell
 python convert_to_gcn_data.py --fc res50 --wv glove
 ```
 ### Finally, start training!
-```
+```Shell
 python gcn/train_gcn.py --gpu $GPU_ID 	--dataset ../data/glove_res50/ --save_path $SAVE_PATH
 ```
 
