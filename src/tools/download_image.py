@@ -7,53 +7,46 @@ import glob
 data_dir = '../data/'
 
 
-def download(start, end, todo_list):
+def download(vid_file):
+    with open(vid_file) as fp:
+        vid_list = [line.strip() for line in fp]
     url_list = 'http://www.image-net.org/download/synset?wnid='
     url_key = '&username=%s&accesskey=%s&release=latest&src=stanford' % (args.user, args.key)
-    print url_key
 
     testfile = urllib.URLopener()
-    num = 0
-    for i in range(start, end):
-        wnid = todo_list[i]
+    for i in range(len(vid_list)):
+        wnid = vid_list[i]
         url_acc = url_list + wnid + url_key
-        cmd = '\"' + url_acc + '\"'
-        if os.path.exists(os.path.join(scratch_dir, wnid)) or os.path.exists(os.path.join(scratch_dir, wnid) + '.tar'):
-            print 'Exist!! %s ' % os.path.join(scratch_dir, wnid)
-            num += 1
-        else:
-            print('%d, %s, Downloading ...' % (i, wnid))
-            try:
-                testfile.retrieve(url_acc, scratch_dir + '/' + wnid + '.tar')
-            except:
-                print('Error when downloading', wnid)
-            if not os.path.exists(os.path.join(scratch_dir, wnid)):
-                os.makedirs(os.path.join(scratch_dir, wnid))
-            cmd = 'tar -xf ' + os.path.join(scratch_dir, wnid + '.tar') + ' --directory ' + os.path.join(scratch_dir,
-                                                                                                         wnid)
-            os.system(cmd)
-            cmd = 'rm ' + os.path.join(scratch_dir, wnid + '.tar')
-            os.system(cmd)
 
+        save_dir = os.path.join(scratch_dir, wnid)
+        lockname = save_dir + '.lock'
+        if os.path.exists(save_dir):
+            continue
+        if os.path.exists(lockname):
+            continue
+        try:
+            os.makedirs(lockname)
+        except:
+            continue
+        tar_file = os.path.join(scratch_dir, wnid + '.tar')
+        try:
+            testfile.retrieve(url_acc, tar_file)
+            print('Downloading %s' % wnid)
+        except:
+            print('!!! Error when downloading', wnid)
+            continue
 
-def multi_download(entity_file):
-    todo_list = []
-    with open(entity_file) as fp:
-        for line in fp:
-            todo_list.append(line[0:-1])
-    num = args.num_threads
-    interval = len(todo_list) / num
-    thread_list = []
-    for i in range(num):
-        if i == num - 1:
-            end = len(todo_list)
-        else:
-            end = (i + 1) * interval
-        thread = threading.Thread(target=download, args=(i * interval, end, todo_list))
-        thread.start()
-        thread_list.append(thread)
-    for i in range(num):
-        thread_list[i].join()
+        if not os.path.exists(os.path.join(scratch_dir, wnid)):
+            os.makedirs(os.path.join(scratch_dir, wnid))
+        cmd = 'tar -xf ' + tar_file + ' --directory ' + save_dir
+        os.system(cmd)
+        cmd = 'rm ' + os.path.join(tar_file)
+        os.system(cmd)
+        cmd = 'rm -r %s' % lockname
+        os.system(cmd)
+
+        if i % 10 == 0:
+            print('%d / %d' % (i, len(vid_list)))
 
 
 def make_image_list(list_file, image_dir, name, offset=1000):
@@ -71,6 +64,21 @@ def make_image_list(list_file, image_dir, name, offset=1000):
         if len(img_list) == 0:
             print('Warning: does not have class %s. Do you forgot to download the picture??' % wnid)
     wr_fp.close()
+
+
+def rm_empty(vid_file):
+    with open(vid_file) as fp:
+        vid_list = [line.strip() for line in fp]
+    cnt = 0
+    for i in range(len(vid_list)):
+        save_dir = os.path.join(scratch_dir, vid_list[i])
+        jpg_list = glob.glob(save_dir + '/*.JPEG')
+        if len(jpg_list) < 10:
+            print(vid_list[i])
+            cmd = 'rm -r %s ' % save_dir
+            os.system(cmd)
+            cnt += 1
+    print(cnt)
 
 
 def parse_arg():
@@ -106,6 +114,6 @@ if __name__ == '__main__':
         list_file = os.path.join(data_dir, 'list/all.txt')
     else:
         raise NotImplementedError
-    multi_download(list_file)
+    download(list_file)
 
     make_image_list(list_file, args.save_dir, name)

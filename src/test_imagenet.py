@@ -21,8 +21,12 @@ def test_imagenet_zero(fc_file_pred, has_train=1):
         for line in fp:
             fname, lbl = line.split()
             assert int(lbl) >= 1000
-            # testlist.append(fname.replace('.JPEG', '.mat'))
-            testlist.append(fname.replace('.JPEG', '.npz'))
+            # feat_name = os.path.join(feat_folder, fname.replace('.JPEG', '.mat'))
+            feat_name = os.path.join(feat_folder, fname.replace('.JPEG', '.npz'))
+            if not os.path.exists(feat_name):
+                print('not feature', feat_name)
+                continue
+            testlist.append(feat_name)
             testlabels.append(int(lbl))
 
     with open(fc_file_pred, 'rb') as fp:
@@ -77,13 +81,12 @@ def test_imagenet_zero(fc_file_pred, has_train=1):
     print('train + test class: ', len(labels_train))
 
     topKs = [1]
-    top_retrv = [1, 2, 3, 4, 5, 10, 20]
+    top_retrv = [1, 2, 5, 10, 20]
     hit_count = np.zeros((len(topKs), len(top_retrv)))
 
     cnt_valid = 0
     for j in range(len(testlist)):
         featname = testlist[j]
-        featname = os.path.join(feat_folder, featname)
 
         if valid_clss[testlabels[j]] == 0:
             continue
@@ -197,9 +200,8 @@ if __name__ == '__main__':
             param = 'Test Set: '
             if args.hop == '2':
                 vallist_folder = os.path.join(data_dir, 'img-2-hops.txt')
+                vallist_folder = '/nfs.yoda/xiaolonw/judy_folder/nell_data/to_deploy/data/test_list/val_1549.txt'
                 classids_file_retrain = os.path.join(data_dir, 'corresp-2-hops.json')
-                # vallist_folder = data_dir + '/val_1549.txt'
-                # classids_file_retrain = data_dir + '/corresp_ids_all_test_1549.json'
                 param += '2-hops'
             elif args.hop == '3':
                 vallist_folder = os.path.join(data_dir, 'img-3-hops.txt')

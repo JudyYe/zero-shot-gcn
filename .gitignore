@@ -3,6 +3,7 @@
 ._*
 *.xml
 *.pyc
+ind.NELL.*
 data/word_embedding_model/*
 images/
 feats/
