@@ -4,6 +4,9 @@ import threading
 import urllib
 import glob
 
+import cv2
+import numpy as np
+
 data_dir = '../data/'
 
 
@@ -80,6 +83,36 @@ def rm_empty(vid_file):
             cnt += 1
     print(cnt)
 
+def down_sample(list_file, image_dir, size=256):
+    with open(list_file) as fp:
+        index_list = [line.split()[0] for line in fp]
+    for i, index in enumerate(index_list):
+        img_file = os.path.join(image_dir, index)
+        if not os.path.exists(img_file):
+            print('not exist:', img_file)
+            continue
+        img = downsample_image(img_file, size)
+        if img is None:
+            continue
+        save_file = os.path.join(os.path.dirname(img_file), os.path.basename(img_file).split('.')[0] + 'copy') + '.JPEG'
+        cv2.imwrite(save_file, img)
+        cmd = 'mv %s %s' % (save_file, img_file)
+        os.system(cmd)
+        if i % 1000 == 0:
+            print(i, len(index_list), index)
+
+def downsample_image(img_file, target_size):
+    img = cv2.imread(img_file)
+    if img is None:
+        return img
+    im_shape = img.shape
+    im_size_min = np.min(im_shape[0:2])
+    im_scale = float(target_size) / float(im_size_min)
+    im_scale = min(1, im_scale)
+    img = cv2.resize(img, None, None, fx=im_scale, fy=im_scale,
+                    interpolation=cv2.INTER_LINEAR)
+    return img
+
 
 def parse_arg():
     parser = argparse.ArgumentParser(description='')
@@ -112,6 +145,8 @@ if __name__ == '__main__':
         list_file = os.path.join(data_dir, 'list/all.txt')
     else:
         raise NotImplementedError
-    download(list_file)
+    # download(list_file)
 
-    make_image_list(list_file, args.save_dir, name)
+    # make_image_list(list_file, args.save_dir, name)
+    img_file = os.path.join(data_dir, 'list/img-all.txt')
+    down_sample(img_file, args.save_dir)

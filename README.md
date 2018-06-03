@@ -4,7 +4,7 @@ An implementation of **Zero-shot Recognition via Semantic Embeddings and Knowled
 In the paper, we propose to utilize both semantic embedding and class relation graph to
 learn visual classifiers for zero-shot classes (categoryies that do not appear in the CNN training process).
 
-![](data/docs/git-gcn-teaser.png)
+<!-- ![](data/docs/git-gcn-teaser.png) -->
 The pipeline is as the figure above depicts. It consists of two network: CNN and GCN module.
 We take CNN as off-the-shelf network (ImageNet-1k pretrain specifically) to extract image feature and provide its fc7 classifier as ground truth for the GCN. The GCN module is trained to embed every class node to the space of classifier weight by applying the loss to only seen classes.
 During the inference, the image feature is extracted by the CNN network which has never seen this class in training time.
@@ -25,7 +25,7 @@ cd zero-shot-gcn/src
 Let us call `zero-shot-gcn/src` as `$ROOT_FOLDER`
 
 ## Prepare data
-The total images will take about 1.1T. The extracted feature will also be over 30G. It is recommended to save them to your large space storage $IMAGE_FOLDER $FEAT_FOLDER and soft link them.
+The total images of unseen classes will take about 1.1T. The extracted feature will also be over 100G. It is recommended to save them to your large space storage $IMAGE_FOLDER $FEAT_FOLDER and soft link them.
 ```Shell
 cd ..
 ln -s $IMAGE_FOLDER images
@@ -70,9 +70,12 @@ python tools/extract_pool5.py --fc $res50_OR_inception --model_path $CNN_MODEL_P
 ```
 
 ## Testing
-Although it takes 2 more steps to train GCN, at this point, we are ready to perform zero-shot classification with the [model](https://www.dropbox.com/sh/q9mid4wjj5vy0si/AADg8_NobfxkDot3VM7tE8Fua?dl=0) we provide.
+Although it takes 2 more steps to train GCN, at this point, we can perform zero-shot classification with the [model](https://www.dropbox.com/sh/q9mid4wjj5vy0si/AADg8_NobfxkDot3VM7tE8Fua?dl=0) and semantic embeddings we provide.
 ```Shell
-python test_imagenet.py --model $MODEL_PATH
+mkdir ../data/word_embedding_model
+wget -O ../data/word_embedding_model https://www.dropbox.com/s/b0f1le1hbs8p2b7/glove_word2vec_wordnet.pkl?dl=0
+wget -O ../data/ https://www.dropbox.com/s/e7jg00nx0h2gbte/wordnet_resnet_glove_feat_2048_1024_512_300?dl=0
+python test_imagenet.py --model ../data/wordnet_resnet_glove_feat_2048_1024_512_300
 ```
 The above line defaults to `res50` + `2-hops` combination and test under two settings: unseen classes with or without seen classes. (see the paper for further explaination.)
 

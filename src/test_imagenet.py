@@ -6,6 +6,7 @@ import os
 
 import pickle as pkl
 import scipy.io as sio
+import time
 
 
 def test_imagenet_zero(fc_file_pred, has_train=1):
@@ -85,6 +86,7 @@ def test_imagenet_zero(fc_file_pred, has_train=1):
     hit_count = np.zeros((len(topKs), len(top_retrv)))
 
     cnt_valid = 0
+    t = time.time()
     for j in range(len(testlist)):
         featname = testlist[j]
 
@@ -98,9 +100,6 @@ def test_imagenet_zero(fc_file_pred, has_train=1):
         matfeat = matfeat['feat']
 
         scores = np.dot(matfeat, fc_now).squeeze()
-
-        if j % 10000 == 0:
-            print(j, len(testlist))
 
         scores = scores - scores.max()
         scores = np.exp(scores)
@@ -116,6 +115,10 @@ def test_imagenet_zero(fc_file_pred, has_train=1):
                     if lbl == testlabels[j]:
                         hit_count[k][k2] = hit_count[k][k2] + 1
                         break
+        if j % 10000 == 0:
+            inter = time.time() - t
+            print('processing %d / %d ' % (j, len(testlist)), ', Estimated time: ', inter / (j-1) * (len(testlist) - j))
+
     hit_count = hit_count / cnt_valid
 
     fout = open(fc_file_pred + '_result_pred_zero.txt', 'w')
@@ -200,7 +203,6 @@ if __name__ == '__main__':
             param = 'Test Set: '
             if args.hop == '2':
                 vallist_folder = os.path.join(data_dir, 'img-2-hops.txt')
-                vallist_folder = '/nfs.yoda/xiaolonw/judy_folder/nell_data/to_deploy/data/test_list/val_1549.txt'
                 classids_file_retrain = os.path.join(data_dir, 'corresp-2-hops.json')
                 param += '2-hops'
             elif args.hop == '3':

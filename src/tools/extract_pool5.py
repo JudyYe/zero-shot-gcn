@@ -18,7 +18,7 @@ def extract_feature(image_list, pool5, image_holder, preprocess, model_path, ima
     tfconfig = tf.ConfigProto(allow_soft_placement=True)
     tfconfig.gpu_options.allow_growth = True
     sess = tf.Session(config=tfconfig)
-    
+
     init(model_path, sess)
     print('Done Init! ')
     net_time, cnt = 0, 0
@@ -37,6 +37,9 @@ def extract_feature(image_list, pool5, image_holder, preprocess, model_path, ima
         t = time.time()
         cnt += 1
         image = preprocess(image_name)
+        if image is None:
+            print('no image')
+            continue
         feat = run_feat(sess, pool5, image_holder, image)
         if not os.path.exists(os.path.dirname(feat_name)):
             try:
@@ -47,7 +50,8 @@ def extract_feature(image_list, pool5, image_holder, preprocess, model_path, ima
         np.savez_compressed(feat_name, feat=feat)
         net_time += time.time() - t
         if i % 1000 == 0:
-            print('extracting feature [%d / %d] %s (%f sec)' % (i, len(image_list), feat_name, net_time / cnt * 1000), feat.shape)
+            print('extracting feature [%d / %d] %s (%f sec)' % (i, len(image_list), feat_name, net_time / cnt * 1000),
+                  feat.shape)
             net_time = 0
             cnt = 0
         cmd = 'rm -r %s' % lockname
@@ -89,6 +93,8 @@ def preprocess_res50(image_name):
     _G_MEAN = 116.78
     _B_MEAN = 103.94
     image = cv2.imread(image_name)
+    if image is None:
+        return None
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     target_size = 256
     crop_size = 224
@@ -111,6 +117,8 @@ def preprocess_res50(image_name):
 
 def preprocess_inception(image_name):
     image = cv2.imread(image_name)
+    if image is None:
+        return None
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     target_size = 256
     crop_size = 224
@@ -141,50 +149,49 @@ def run_feat(sess, pool5, image_holder, image):
     return feat
 
 
-
 def resnet_arg_scope(is_training=True,
                      batch_norm_decay=0.997,
                      batch_norm_epsilon=1e-5,
                      batch_norm_scale=True):
-  batch_norm_params = {
-    'is_training': False,
-    'decay': batch_norm_decay,
-    'epsilon': batch_norm_epsilon,
-    'scale': batch_norm_scale,
-    'trainable': False,
-    'updates_collections': tf.GraphKeys.UPDATE_OPS
-  }
-  with arg_scope(
-      [slim.conv2d],
-      weights_initializer=slim.variance_scaling_initializer(),
-      trainable=is_training,
-      activation_fn=tf.nn.relu,
-      normalizer_fn=slim.batch_norm,
-      normalizer_params=batch_norm_params):
-    with arg_scope([slim.batch_norm], **batch_norm_params) as arg_sc:
-      return arg_sc
+    batch_norm_params = {
+        'is_training': False,
+        'decay': batch_norm_decay,
+        'epsilon': batch_norm_epsilon,
+        'scale': batch_norm_scale,
+        'trainable': False,
+        'updates_collections': tf.GraphKeys.UPDATE_OPS
+    }
+    with arg_scope(
+            [slim.conv2d],
+            weights_initializer=slim.variance_scaling_initializer(),
+            trainable=is_training,
+            activation_fn=tf.nn.relu,
+            normalizer_fn=slim.batch_norm,
+            normalizer_params=batch_norm_params):
+        with arg_scope([slim.batch_norm], **batch_norm_params) as arg_sc:
+            return arg_sc
 
 
 def inception_arg_scope(is_training=True,
-                     batch_norm_decay=0.997,
-                     batch_norm_epsilon=1e-5,
-                     batch_norm_scale=True):
-  batch_norm_params = {
-    'is_training': False,
-    'decay': batch_norm_decay,
-    'epsilon': batch_norm_epsilon,
-    'trainable': False,
-    'updates_collections': tf.GraphKeys.UPDATE_OPS
-  }
-  with arg_scope(
-      [slim.conv2d],
-      weights_initializer=slim.variance_scaling_initializer(),
-      trainable=is_training,
-      activation_fn=tf.nn.relu,
-      normalizer_fn=slim.batch_norm,
-      normalizer_params=batch_norm_params):
-    with arg_scope([slim.batch_norm], **batch_norm_params) as arg_sc:
-      return arg_sc
+                        batch_norm_decay=0.997,
+                        batch_norm_epsilon=1e-5,
+                        batch_norm_scale=True):
+    batch_norm_params = {
+        'is_training': False,
+        'decay': batch_norm_decay,
+        'epsilon': batch_norm_epsilon,
+        'trainable': False,
+        'updates_collections': tf.GraphKeys.UPDATE_OPS
+    }
+    with arg_scope(
+            [slim.conv2d],
+            weights_initializer=slim.variance_scaling_initializer(),
+            trainable=is_training,
+            activation_fn=tf.nn.relu,
+            normalizer_fn=slim.batch_norm,
+            normalizer_params=batch_norm_params):
+        with arg_scope([slim.batch_norm], **batch_norm_params) as arg_sc:
+            return arg_sc
 
 
 def res50():
@@ -208,6 +215,7 @@ def inception():
     print(net_conv.shape)
 
     return net_conv, image
+
 
 def parse_arg():
     parser = argparse.ArgumentParser(description='word embeddign type')
