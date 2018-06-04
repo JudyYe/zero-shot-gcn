@@ -118,12 +118,10 @@ if __name__ == '__main__':
     args = parse_arg()
     if args.fc == 'inception':
         model_path = '../../pretrain_weights/inception_v1.ckpt'
-        save_path = '../../pretrain_weights/inception_fc7.npz'
         layer_name = 'InceptionV1/Logits/Conv2d_0c_1x1/weights'
         offset = 1
     elif args.fc == 'res50':
         model_path = '../../pretrain_weights/resnet_v1_50.ckpt'
-        save_path = '../../pretrain_weights/res50_fc7.npz'
         layer_name = 'resnet_v1_50/logits/weights'
         offset = 0
     else:
