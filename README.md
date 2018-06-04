@@ -31,7 +31,7 @@ Please read [`DATASET.md`](DATASET.md) for downloading images and extracting ima
 ## Testing Demo
 With extracted feature and semantic embeddings, at this point, we can perform zero-shot classification with the [model](https://www.dropbox.com/sh/q9mid4wjj5vy0si/AADg8_NobfxkDot3VM7tE8Fua?dl=0) we provide.
 ```Shell
-wget -O ../data/ https://www.dropbox.com/s/e7jg00nx0h2gbte/wordnet_resnet_glove_feat_2048_1024_512_300?dl=0
+wget -O ../data/wordnet_resnet_glove_feat_2048_1024_512_300 https://www.dropbox.com/s/e7jg00nx0h2gbte/wordnet_resnet_glove_feat_2048_1024_512_300?dl=0
 python test_imagenet.py --model ../data/wordnet_resnet_glove_feat_2048_1024_512_300
 ```
 The above line defaults to `res50` + `2-hops` combination and test under two settings: unseen classes with or without seen classes. (see the paper for further explaination.)
