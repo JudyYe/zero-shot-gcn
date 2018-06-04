@@ -55,6 +55,7 @@ python convert_to_gcn_data.py --fc res50 --wv glove
 
 
 ## Extract Semantic Embedding
+You can skip this step if you just want to use the GCN model we trained.
 - **Downloading ours**.  The following command is for downloading *Glove* semantic embedding of ImageNet graph. The semantic embedding using the other two method can be downloaded from  [here](https://www.dropbox.com/sh/9pklcwm7rkhd9qa/AACDMMKHIMXNW5cmInFFrCDCa?dl=0).
 ``` Shell
 mkdir ../data/word_embedding_model
