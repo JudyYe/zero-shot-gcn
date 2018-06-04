@@ -62,5 +62,6 @@ mkdir ../data/word_embedding_model
 wget -O ../data/word_embedding_model https://www.dropbox.com/s/b0f1le1hbs8p2b7/glove_word2vec_wordnet.pkl?dl=0
 ```
 - **Extract yourself.** The script `tools/obtain_word_embedding.py` extracts 3 version of semantic embeddings.
-        *  GoogleNews and Fasttext embedding may require some other packages.
+    + **Note**:
+        * GoogleNews and Fasttext embedding may require some other packages.
         * You need to download the pretrained word embedding dictionary. The link is written in the beginning of the script. Please manually download what you need since some model in the google drive cannot wget.
