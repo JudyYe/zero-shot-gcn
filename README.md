@@ -46,16 +46,16 @@ We first report the results on testing with only unseen classes. We compare our 
 ImageNet Subset |Method | top 1 | top 2 |top 5 |top 10| top 20 |
 ---|---|---|---|---|---|---|
 2-hops | SYNC <br/> GCNZ (Ours) | 10.5 <br/> **21.0** |	17.7<br/>**33.7** | 28.6 <br/> **52.7** |	40.1<br/>  **64.8** |	52.0 <br/> **74.3**
-3-hops | SYNC <br/>GCNZ (Ours) | 2.9 <br/> 4.3 | 	4.9<br/> 7.7 |9.2 <br/>14.2	| 14.2 <br/>20.4|	20.9 <br/> 27.6|
-All | SYNC <br/>GCNZ (Ours) | 1.4 <br/>1.9	|2.4 <br/> 3.4 |4.5 <br/> 6.4	|7.1 <br/> 9.3	|10.9 <br/> 12.7|
+3-hops | SYNC <br/>GCNZ (Ours) | 2.9 <br/> **4.3** | 	4.9<br/> **7.7** |9.2 <br/> **14.2**	| 14.2 <br/> **20.4** |	20.9 <br/> **27.6** |
+All | SYNC <br/>GCNZ (Ours) | 1.4 <br/> **1.9**	|2.4 <br/> **3.4** |4.5 <br/> **6.4**	|7.1 <br/>  **9.3**	|10.9 <br/> **12.7** |
 
 We then report the results under the generalized zero-shot setting, i.e. testing with both unseen and seen classes. We compare our method with the state-of-the-art method [`ConSE`](https://arxiv.org/abs/1312.5650) in this benchmark.
 
 ImageNet Subset |Method | top 1 | top 2 |top 5 |top 10| top 20 |
 ---|---|---|---|---|---|---|
-2-hops (+1K) | ConSE <br/> GCNZ (Ours) | 0.1 <br/> 10.2|	11.2<br/>21.2| 24.3 <br/> 42.1 |	29.1<br/> 56.2 |	32.7 <br/> 67.5
-3-hops (+1K) | ConSE <br/>GCNZ (Ours) | 0.2 <br/> 2.4 | 	3.2<br/> 5.3 |7.3 <br/>12.0	| 10.0 <br/>18.2|12.2 <br/> 25.4|
-All (+1K) | ConSE <br/>GCNZ (Ours) | 0.1 <br/>x	|1.5 <br/> x |3.5 <br/> x	|4.9 <br/> x	|6.2 <br/> x|
+2-hops (+1K) | ConSE <br/> GCNZ (Ours) | 0.1 <br/> **10.2** |	11.2<br/> **21.2** | 24.3 <br/> **42.1** |	29.1<br/> **56.2** |	32.7 <br/> **67.5**
+3-hops (+1K) | ConSE <br/>GCNZ (Ours) | 0.2 <br/> **2.4** | 	3.2<br/> **5.3** |7.3 <br/> **12.0**	| 10.0 <br/> **18.2** |12.2 <br/> **25.4** |
+All (+1K) | ConSE <br/>GCNZ (Ours) | 0.1 <br/> **x**	|1.5 <br/> **x** |3.5 <br/> **x**	|4.9 <br/> **x**	|6.2 <br/> **x** |
 
 In the end, we show the t-sne visualization of GCN input and output correspondingly. We only visualize two subtrees, since the classes in 2-hops is even too large to visulize. With less number of classes, it is noticed that the output of GCN is neither random scattered nor copy-paste from seen classes.
 
