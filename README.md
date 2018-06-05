@@ -57,14 +57,12 @@ ImageNet Subset |Method | top 1 | top 2 |top 5 |top 10| top 20 |
 3-hops (+1K) | ConSE <br/>GCNZ (Ours) | 0.2 <br/> 2.4 | 	3.2<br/> 5.3 |7.3 <br/>12.0	| 10.0 <br/>18.2|12.2 <br/> 25.4|
 All (+1K) | ConSE <br/>GCNZ (Ours) | 0.1 <br/>x	|1.5 <br/> x |3.5 <br/> x	|4.9 <br/> x	|6.2 <br/> x|
 
-In the end, we show the t-sne visualization of GCN input and output correspondingly. Since seen and unseen class of 2-hops is even too many to visulize, we visualize three other subtrees additionally. With less number of classes, it is noticed that the output of GCN is neither copy-paste nor random scattered.
+In the end, we show the t-sne visualization of GCN input and output correspondingly. Since seen and unseen class of 2-hops is even too many to visulize, we only visualize two subtrees. With less number of classes, it is noticed that the output of GCN is neither  random scattered nor copy-paste from seen classes.
 
 synset word|t-sne of input  | t-sne of output
 ---|:-------------------------:|:-------------------------:
-2-hops | ![](data/docs/train_wv_c.png) | ![](data/docs/train_fc_c.png)
 instrumentality<br/> instrumentation|![](data/docs/train_wv_inst.png)      |  ![](data/docs/train_fc_inst.png)
 animal,<br/> animate being,<br/> beast, brute, <br/>creature, fauna | ![](data/docs/train_wv_animal.png) | ![](data/docs/train_fc_animal.png)
-container | ![](data/docs/train_wv_ccontainer.png) | ![](data/docs/train_fc_ccontainer.png)
 
 
 
