@@ -14,7 +14,7 @@ The pipeline is as the figure above depicts. It consists of two network: CNN and
 --->
 
 ## Citation
-If you find this work helpful, please consider citing:
+If you use our code in your research or wish to refer to the benchmark results, please use the following BibTeX entry.
 ```
 @article{wang2018zero,
   title={Zero-shot Recognition via Semantic Embeddings and Knowledge Graphs},
