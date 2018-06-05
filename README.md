@@ -47,7 +47,7 @@ ImageNet Subset |Method | top 1 | top 2 |top 5 |top 10| top 20 |
 ---|---|---|---|---|---|---|
 2-hops | SYNC <br/> GCNZ (Ours) | 10.5 <br/> 21.0|	17.7<br/>33.7| 28.6 <br/> 52.7 |	40.1<br/> 64.8 |	52.0 <br/> 74.3
 3-hops | SYNC <br/>GCNZ (Ours) | 2.9 <br/> 4.3 | 	4.9<br/> 7.7 |9.2 <br/>14.2	| 14.2 <br/>20.4|	20.9 <br/> 27.6|
-All | SYNC <br/>GCNZ (Ours) | 1.4 <br/>x	|2.4 <br/> x |4.5 <br/> x	|7.1 <br/> x	|10.9 <br/> x|
+All | SYNC <br/>GCNZ (Ours) | 1.4 <br/>1.9	|2.4 <br/> 3.4 |4.5 <br/> 6.4	|7.1 <br/> 9.3	|10.9 <br/> 12.7|
 
 We then report the results under the generalized zero-shot setting, i.e. testing with both unseen and seen classes. We compare our method with the state-of-the-art method [`ConSE`](https://arxiv.org/abs/1312.5650) in this benchmark.
 
