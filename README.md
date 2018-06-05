@@ -51,20 +51,23 @@ We report the results with the above testing demo code (using ResNet-50 visual f
 
 We first report the results on testing with only unseen classes. We compare our method with the state-of-the-art method [`SYNC`](https://arxiv.org/abs/1603.00550) in this benchmark.
 
+<center>
 ImageNet Subset |Method | top 1 | top 2 |top 5 |top 10| top 20 |
 ---|---|---|---|---|---|---|
 2-hops | SYNC <br/> GCNZ (Ours) | 10.5 <br/> **21.0** |	17.7<br/>**33.7** | 28.6 <br/> **52.7** |	40.1<br/>  **64.8** |	52.0 <br/> **74.3**
 3-hops | SYNC <br/>GCNZ (Ours) | 2.9 <br/> **4.3** | 	4.9<br/> **7.7** |9.2 <br/> **14.2**	| 14.2 <br/> **20.4** |	20.9 <br/> **27.6** |
 All | SYNC <br/>GCNZ (Ours) | 1.4 <br/> **1.9**	|2.4 <br/> **3.4** |4.5 <br/> **6.4**	|7.1 <br/>  **9.3**	|10.9 <br/> **12.7** |
+</center>
 
 We then report the results under the generalized zero-shot setting, i.e. testing with both unseen and seen classes. We compare our method with the state-of-the-art method [`ConSE`](https://arxiv.org/abs/1312.5650) in this benchmark.
 
+<center>
 ImageNet Subset |Method | top 1 | top 2 |top 5 |top 10| top 20 |
 ---|---|---|---|---|---|---|
 2-hops (+1K) | ConSE <br/> GCNZ (Ours) | 0.1 <br/> **10.2** |	11.2<br/> **21.2** | 24.3 <br/> **42.1** |	29.1<br/> **56.2** |	32.7 <br/> **67.5**
 3-hops (+1K) | ConSE <br/>GCNZ (Ours) | 0.2 <br/> **2.4** | 	3.2<br/> **5.3** |7.3 <br/> **12.0**	| 10.0 <br/> **18.2** |12.2 <br/> **25.4** |
 All (+1K) | ConSE <br/>GCNZ (Ours) | 0.1 <br/> **1.0**	|1.5 <br/> **2.3** |3.5 <br/> **5.3**	|4.9 <br/> **8.1**	|6.2 <br/> **11.7** |
-
+</center>
 We also visualize the t-SNE plots of GCN inputs and outputs for two subtrees of WordNet as followings.
 
 synset word|t-SNE of input word embeddings | t-SNE of output visual classifiers
