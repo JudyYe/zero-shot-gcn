@@ -6,7 +6,7 @@ This code is a re-implementation of the zero-shot classification in ImageNet in 
 
 Our pipeline consists of two parts: CNN and GCN.
 - **CNN**: Input image and output deep features for the image.
-- **GCN**: Input the word embedding for every object class, and output the visual classifier for every object class. Each visual classifier (1-D weight vector) can be applied on the deep features for classification. 
+- **GCN**: Input the word embedding for every object class, and output the visual classifier for every object class. Each visual classifier (1-D weight vector) can be applied on the deep features for classification.
 
 
 <!---
@@ -65,7 +65,7 @@ ImageNet Subset |Method | top 1 | top 2 |top 5 |top 10| top 20 |
 3-hops (+1K) | ConSE <br/>GCNZ (Ours) | 0.2 <br/> **2.4** | 	3.2<br/> **5.3** |7.3 <br/> **12.0**	| 10.0 <br/> **18.2** |12.2 <br/> **25.4** |
 All (+1K) | ConSE <br/>GCNZ (Ours) | 0.1 <br/> **x**	|1.5 <br/> **x** |3.5 <br/> **x**	|4.9 <br/> **x**	|6.2 <br/> **x** |
 
-In the end, we show the t-sne visualization of GCN input and output correspondingly. We only visualize two subtrees, since the classes in 2-hops is even too large to visulize. With less number of classes, it is noticed that the output of GCN is neither random scattered nor copy-paste from seen classes.
+We also visualize the t-sne plots of GCN inputs and outputs for two subtrees of WordNet as followings.
 
 synset word|t-sne of input word embeddings | t-sne of output visual classifiers
 ---|:-------------------------:|:-------------------------:
