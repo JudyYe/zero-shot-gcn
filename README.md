@@ -16,13 +16,13 @@ If you find this work helpful, please consider citing:
 }
 ```
 
-## Installation
+## Using Our Code
 
 ```bash
 git clone git@github.com:JudyYe/zero-shot-gcn.git
 cd zero-shot-gcn/src
 ```
-Let us call `zero-shot-gcn/src` as `$ROOT_FOLDER`
+Without further specification, we default the root directory to `zero-shot-gcn/src`.
 
 
 ## Dataset Preparation
