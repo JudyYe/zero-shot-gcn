@@ -45,7 +45,7 @@ We first report the results on testing with only unseen classes. We compare our 
 
 ImageNet Subset |Method | top 1 | top 2 |top 5 |top 10| top 20 |
 ---|---|---|---|---|---|---|
-2-hops | SYNC <br/> GCNZ (Ours) | 10.5 <br/> 21.0|	17.7<br/>33.7| 28.6 <br/> 52.7 |	40.1<br/> 64.8 |	52.0 <br/> 74.3
+2-hops | SYNC <br/> GCNZ (Ours) | 10.5 <br/> **21.0** |	17.7<br/>**33.7** | 28.6 <br/> **52.7** |	40.1<br/>  **64.8** |	52.0 <br/> **74.3**
 3-hops | SYNC <br/>GCNZ (Ours) | 2.9 <br/> 4.3 | 	4.9<br/> 7.7 |9.2 <br/>14.2	| 14.2 <br/>20.4|	20.9 <br/> 27.6|
 All | SYNC <br/>GCNZ (Ours) | 1.4 <br/>1.9	|2.4 <br/> 3.4 |4.5 <br/> 6.4	|7.1 <br/> 9.3	|10.9 <br/> 12.7|
 
@@ -59,7 +59,7 @@ All (+1K) | ConSE <br/>GCNZ (Ours) | 0.1 <br/>x	|1.5 <br/> x |3.5 <br/> x	|4.9 <
 
 In the end, we show the t-sne visualization of GCN input and output correspondingly. We only visualize two subtrees, since the classes in 2-hops is even too large to visulize. With less number of classes, it is noticed that the output of GCN is neither random scattered nor copy-paste from seen classes.
 
-synset word|t-sne of input  | t-sne of output
+synset word|t-sne of input word embeddings | t-sne of output visual classifiers
 ---|:-------------------------:|:-------------------------:
 instrumentality<br/> instrumentation|![](data/docs/train_wv_inst.png)      |  ![](data/docs/train_fc_inst.png)
 animal,<br/> animate being,<br/> beast, brute, <br/>creature, fauna | ![](data/docs/train_wv_animal.png) | ![](data/docs/train_fc_animal.png)
