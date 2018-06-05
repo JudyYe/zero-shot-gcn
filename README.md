@@ -5,8 +5,8 @@ This code is a re-implementation of the zero-shot classification in ImageNet in 
    ![](data/docs/git-gcn-teaser.png)
 
 Our pipeline consists of two parts: CNN and GCN.
-- **CNN**: Input image and output deep features for the image.
-- **GCN**: Input the word embedding for every object class, and output the visual classifier for every object class. Each visual classifier (1-D weight vector) can be applied on the deep features for classification.
+- **CNN**: **Input** an image and **output** deep features for the image.
+- **GCN**: **Input** the word embedding for every object class, and **output** the visual classifier for every object class. Each visual classifier (1-D weight vector) can be applied on the deep features for classification.
 
 
 <!---
