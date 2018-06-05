@@ -61,7 +61,7 @@ In the end, we show the t-sne visualization of GCN input and output correspondin
 
 synset word|t-sne of input  | t-sne of output
 ---|:-------------------------:|:-------------------------:
-2-hops | ![](data/docs/train_wv_c.png) | ![](data/docs/train_fc_c.png)
+2-hops | ![](data/docs/test+train_wv_c.png) | ![](data/docs/test+train_fc_c.png)
 instrumentality<br/> instrumentation|![](data/docs/train_wv_inst.png)      |  ![](data/docs/train_fc_inst.png)
 animal,<br/> animate being,<br/> beast, brute, <br/>creature, fauna | ![](data/docs/train_wv_animal.png) | ![](data/docs/train_fc_animal.png)
 container | ![](data/docs/train_wv_ccontainer.png) | ![](data/docs/train_fc_ccontainer.png)
