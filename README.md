@@ -65,9 +65,9 @@ ImageNet Subset |Method | top 1 | top 2 |top 5 |top 10| top 20 |
 3-hops (+1K) | ConSE <br/>GCNZ (Ours) | 0.2 <br/> **2.4** | 	3.2<br/> **5.3** |7.3 <br/> **12.0**	| 10.0 <br/> **18.2** |12.2 <br/> **25.4** |
 All (+1K) | ConSE <br/>GCNZ (Ours) | 0.1 <br/> **x**	|1.5 <br/> **x** |3.5 <br/> **x**	|4.9 <br/> **x**	|6.2 <br/> **x** |
 
-We also visualize the t-sne plots of GCN inputs and outputs for two subtrees of WordNet as followings.
+We also visualize the t-SNE plots of GCN inputs and outputs for two subtrees of WordNet as followings.
 
-synset word|t-sne of input word embeddings | t-sne of output visual classifiers
+synset word|t-SNE of input word embeddings | t-SNE of output visual classifiers
 ---|:-------------------------:|:-------------------------:
 instrumentality<br/> instrumentation|![](data/docs/train_wv_inst.png)      |  ![](data/docs/train_fc_inst.png)
 animal,<br/> animate being,<br/> beast, brute, <br/>creature, fauna | ![](data/docs/train_wv_animal.png) | ![](data/docs/train_fc_animal.png)
