@@ -63,10 +63,10 @@ def find_neighbor(srcfile):
     tree = ET.parse(srcfile)
     root = tree.getroot()
     vertice, edge_list = add_edge_dfs(root[1])
-    print 'num of edge: ', len(edge_list)
-    print 'num of vert: ', len(vertice)
+    print('num of edge: ', len(edge_list))
+    print('num of vert: ', len(vertice))
     vertice = list(set(vertice))
-    print 'After deduplicate, num of vert: ', len(vertice)
+    print('After deduplicate, num of vert: ', len(vertice))
     return vertice, edge_list
 
 
@@ -110,7 +110,7 @@ def convert_to_graph(vertice, edges):
             words.append(wnid_word[wnid])
         else:
             words.append(wnid)
-            print wnid
+            print(wnid)
 
     with open(inv_wordn_word_file, 'w') as fp:
         json.dump(words, fp)
