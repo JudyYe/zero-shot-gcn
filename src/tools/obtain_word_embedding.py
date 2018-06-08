@@ -11,9 +11,9 @@ for extracting word embedding yourself, please download pretrained model from on
 
 url = {'glove': 'http://nlp.stanford.edu/data/glove.6B.zip',
        'google': 'https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit?usp=sharing',
-       'fasttext': 'https://s3-us-west-1.amazonaws.com/fasttext-vectors/wiki-news-300d-1M.vec.zip'}
+       'fasttext': 'https://s3-us-west-1.amazonaws.com/fasttext-vectors/wiki.en.zip'}
 
-data_dir = '../../data/'
+data_dir = '../data/'
 feat_len = 300
 
 
@@ -108,8 +108,6 @@ def get_glove_dict(txt_dir):
 
 
 def glove_google(word_vectors, word):
-    if not word_vectors.has_key(word):
-        return np.zeros(feat_len)
     return word_vectors[word]
 
 
@@ -147,7 +145,7 @@ if __name__ == '__main__':
         save_file = os.path.join(data_dir, 'word_embedding_model', 'fasttext_word2vec_wordnet.pkl')
         if not os.path.exists(save_file):
             from fastText import load_model
-            word_vectors = load_model(model_path)
+            word_vectors = load_model(os.path.join(model_path, 'wiki.en.bin'))
             get_vector = fasttext
     else:
         raise NotImplementedError
