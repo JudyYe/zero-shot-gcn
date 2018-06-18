@@ -145,8 +145,8 @@ if __name__ == '__main__':
         list_file = os.path.join(data_dir, 'list/all.txt')
     else:
         raise NotImplementedError
-    # download(list_file)
+    download(list_file)
 
-    # make_image_list(list_file, args.save_dir, name)
-    img_file = os.path.join(data_dir, 'list/img-all.txt')
-    down_sample(img_file, args.save_dir)
+    make_image_list(list_file, args.save_dir, name)
+#     img_file = os.path.join(data_dir, 'list/img-all.txt')
+#     down_sample(img_file, args.save_dir)
