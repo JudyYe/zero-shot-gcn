@@ -17,6 +17,7 @@ python tools/download_image.py --user $YOUR_USER_NAME --key $YOUR_ACCESS_KEY --s
 **Note**:
 - Downloading images of all unseen classes will take up to one day. We only download the 2-hops subset by default. You may choose to download 3-hops subset of all unseen classes by settting --hop to 3 or all.
 - The script supports multi-process. It is recommended to run several copies.
+- `img-3-hops.txt`, `img-all.txt` will be made after running `download_image.py --hop 3 / all`. Still, we provide the image list [here](https://drive.google.com/open?id=1br9dS99LeiNJB0S2NvzJLHl1xWpX5jQS)
 
 ## Extract Visual Features of Images
 1. **Download** ImageNet preatrained CNN (resnet 50)
